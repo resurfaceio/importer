@@ -71,7 +71,7 @@ public class Main {
         long mb_written = (bytes_written / (1024 * 1024));
         long rate = (messages_written * 1000 / elapsed);
         System.out.println("Messages: " + messages_written + ", Elapsed time: " + elapsed
-                + " ms, MB: " + mb_written + ", Rate: " + rate + " rows/sec");
+                + " ms, MB: " + mb_written + ", Rate: " + rate + " msg/sec");
     }
 
     private static long bytes_written = 0;
