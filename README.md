@@ -24,7 +24,7 @@ mvn package
 ## Importing local file
 
 ```
-FILE=~/Dropbox/datasets/website.json java -Xmx512M -jar target/main-jar-with-dependencies.jar
+FILE=~/Dropbox/datasets/website.ndjson.gz java -Xmx512M -jar target/main-jar-with-dependencies.jar
 ```
 
 ## Creating compressed files
