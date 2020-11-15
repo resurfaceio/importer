@@ -17,9 +17,9 @@ public class Main {
      * Runs importer as command-line program.
      */
     public static void main(String[] args) throws Exception {
-        System.out.println("Importer starting...");
+        System.out.println("\n>>> Importer starting");
         new Main();
-        System.out.println("Importer finished!");
+        System.out.println(">>> Importer finished!\n");
     }
 
     /**
