@@ -2,11 +2,13 @@
 
 package io.resurface.importer;
 
-import java.io.*;
+import io.resurface.messages.Messages;
+
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.zip.GZIPInputStream;
 
 /**
  * Imports data to Resurface database.
@@ -39,43 +41,42 @@ public class Main {
         System.out.println("URL=" + url);
         parsed_url = new URL(url);
 
-        // create reader to file
-        BufferedReader reader;
-        if (file.endsWith(".ndjson")) {
-            reader = new BufferedReader(new FileReader(file));
-        } else if (file.endsWith(".ndjson.gz")) {
-            reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(file))));
-        } else {
-            throw new IllegalArgumentException("File is not .ndjson or .ndjson.gz format");
-        }
-
-        // send each line as a message
-        String message;
-        while ((message = reader.readLine()) != null) send(message);
+        // send all lines
+        Messages.process(file, this::send);
         status();
     }
 
-    private void send(String message) throws Exception {
-        HttpURLConnection url_connection = (HttpURLConnection) parsed_url.openConnection();
-        url_connection.setConnectTimeout(5000);
-        url_connection.setReadTimeout(1000);
-        url_connection.setRequestMethod("POST");
-        url_connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        url_connection.setDoOutput(true);
-        try (OutputStream os = url_connection.getOutputStream()) {
-            os.write(message.getBytes(StandardCharsets.UTF_8));
-            os.flush();
-        }
-        int response_code = url_connection.getResponseCode();
-        if (response_code == 204) {
-            bytes_written += message.length();
-            messages_written += 1;
-            if (messages_written % 100 == 0) status();
-        } else {
-            System.out.println("Failed with response code: " + response_code);
+    /**
+     * Send raw message to the target URL.
+     */
+    private void send(String message) {
+        try {
+            HttpURLConnection url_connection = (HttpURLConnection) parsed_url.openConnection();
+            url_connection.setConnectTimeout(5000);
+            url_connection.setReadTimeout(1000);
+            url_connection.setRequestMethod("POST");
+            url_connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            url_connection.setDoOutput(true);
+            try (OutputStream os = url_connection.getOutputStream()) {
+                os.write(message.getBytes(StandardCharsets.UTF_8));
+                os.flush();
+            }
+            int response_code = url_connection.getResponseCode();
+            if (response_code == 204) {
+                bytes_written += message.length();
+                messages_written += 1;
+                if (messages_written % 100 == 0) status();
+            } else {
+                System.out.println("Failed with response code: " + response_code);
+            }
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
         }
     }
 
+    /**
+     * Print status of import job.
+     */
     private void status() {
         long elapsed = System.currentTimeMillis() - started;
         long mb_written = (bytes_written / (1024 * 1024));

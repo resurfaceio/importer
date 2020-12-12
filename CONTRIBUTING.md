@@ -32,7 +32,11 @@ git push origin master
 
 ## Release Process
 
-Official release candidates are stored on Jenkins.
+Push this new version to CloudSmith:
+
+```
+mvn deploy
+```
 
 Tag release version:
 
