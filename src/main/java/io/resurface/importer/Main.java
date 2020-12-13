@@ -42,7 +42,7 @@ public class Main {
         parsed_url = new URL(url);
 
         // send all lines
-        Messages.process(file, this::send);
+        Messages.iterate(file, this::send);
         status();
     }
 
