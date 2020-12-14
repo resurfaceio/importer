@@ -2,7 +2,7 @@
 
 package io.resurface.importer;
 
-import io.resurface.messages.Messages;
+import io.resurface.messages.MessageFileReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,8 +42,11 @@ public class Main {
         parsed_url = new URL(url);
 
         // send all lines
-        Messages.iterate(file, this::send);
-        status();
+        try (MessageFileReader reader = new MessageFileReader(file)) {
+            reader.iterate(this::send);
+        }
+
+        status();  // show final status
     }
 
     /**
@@ -63,9 +66,7 @@ public class Main {
             }
             int response_code = url_connection.getResponseCode();
             if (response_code == 204) {
-                bytes_written += message.length();
-                messages_written += 1;
-                if (messages_written % 100 == 0) status();
+                if (messages_written++ % 100 == 0) status();
             } else {
                 System.out.println("Failed with response code: " + response_code);
             }
@@ -75,17 +76,15 @@ public class Main {
     }
 
     /**
-     * Print status of import job.
+     * Print status summary.
      */
     private void status() {
         long elapsed = System.currentTimeMillis() - started;
-        long mb_written = (bytes_written / (1024 * 1024));
         long rate = (messages_written * 1000 / elapsed);
         System.out.println("Messages: " + messages_written + ", Elapsed time: " + elapsed
-                + " ms, MB: " + mb_written + ", Rate: " + rate + " msg/sec");
+                + " ms, Rate: " + rate + " msg/sec");
     }
 
-    private long bytes_written = 0;
     private long messages_written = 0;
     private final URL parsed_url;
     private final long started = System.currentTimeMillis();
