@@ -29,10 +29,10 @@ public class Main {
      */
     public Main() throws Exception {
         // read configuration
-        String file = System.getenv("FILE");
+        String file = System.getProperty("FILE");
         if (file == null) throw new IllegalArgumentException("Missing FILE");
         System.out.println("FILE=" + file);
-        String host = System.getenv("HOST");
+        String host = System.getProperty("HOST");
         if (host == null) host = "localhost";
         System.out.println("HOST=" + host);
 
