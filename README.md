@@ -25,9 +25,3 @@ mvn package
 ```
 java -DFILE=~/Dropbox/datasets/website.ndjson.gz -DHOST=localhost -Xmx192M -jar target/main-jar-with-dependencies.jar
 ```
-
-## Creating compressed files
-
-```
-gzip -k [file.ndjson]
-```
