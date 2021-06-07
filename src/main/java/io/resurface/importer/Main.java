@@ -56,7 +56,7 @@ public class Main {
         try {
             HttpURLConnection url_connection = (HttpURLConnection) parsed_url.openConnection();
             url_connection.setConnectTimeout(5000);
-            url_connection.setReadTimeout(1000);
+            url_connection.setReadTimeout(5000);
             url_connection.setRequestMethod("POST");
             url_connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             url_connection.setDoOutput(true);
