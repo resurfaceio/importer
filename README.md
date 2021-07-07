@@ -23,5 +23,5 @@ mvn package
 ## Importing local file
 
 ```
-java -DFILE=~/Dropbox/datasets/website.ndjson.gz -DHOST=localhost -Xmx192M -jar target/main-jar-with-dependencies.jar
+java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -Xmx192M -jar target/main-jar-with-dependencies.jar
 ```
