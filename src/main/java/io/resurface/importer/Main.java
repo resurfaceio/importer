@@ -45,7 +45,7 @@ public class Main {
         System.out.println("HOST=" + host);
 
         // calculate url
-        String url = "http://" + host + ":4001/message";
+        String url = "http://" + host + ":7701/message";
         System.out.println("URL=" + url);
         parsed_url = new URL(url);
 
