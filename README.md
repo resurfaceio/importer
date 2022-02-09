@@ -9,7 +9,7 @@ https://resurface.io/json.html
 
 ## System requirements
 
-* Java 8 or 11
+* Java 11
 * Maven
 
 ## Building from sources
@@ -23,5 +23,5 @@ mvn package
 ## Importing local file
 
 ```
-java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -Xmx256M -jar target/main-jar-with-dependencies.jar
+java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DREPEAT=yes -Xmx256M -jar target/main-jar-with-dependencies.jar
 ```

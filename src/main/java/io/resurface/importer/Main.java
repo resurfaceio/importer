@@ -43,6 +43,9 @@ public class Main {
         String host = System.getProperty("HOST");
         if (host == null) host = "localhost";
         System.out.println("HOST=" + host);
+        String repeat = System.getProperty("REPEAT");
+        if (repeat == null) repeat = "yes";
+        System.out.println("REPEAT=" + repeat);
 
         // calculate url
         String url = "http://" + host + ":7701/message";
@@ -51,23 +54,31 @@ public class Main {
 
         // send all lines in batches
         new Thread(new BatchSender()).start();
-        try (MessageFileReader reader = new MessageFileReader(file)) {
-            reader.iterate((line) -> {
-                try {
-                    this.batch.add(line);
-                    if (this.batch.size() == BATCH_SIZE) {
-                        ArrayList<String> current_batch = this.batch;
-                        this.batch = new ArrayList<>();
-                        batch_queue.put(current_batch);
-                    }
-                } catch (RuntimeException | InterruptedException re) {
-                    // do nothing
-                }
-            });
-        }
 
-        // flush last messages
-        batch_queue.put(this.batch);
+        // send messages in a loop until terminated
+        boolean keep_going = true;
+        while (keep_going) {
+            try (MessageFileReader reader = new MessageFileReader(file)) {
+                reader.iterate((line) -> {
+                    try {
+                        this.batch.add(line);
+                        if (this.batch.size() == BATCH_SIZE) {
+                            ArrayList<String> current_batch = this.batch;
+                            this.batch = new ArrayList<>();
+                            batch_queue.put(current_batch);
+                        }
+                    } catch (RuntimeException | InterruptedException re) {
+                        // do nothing
+                    }
+                });
+            }
+
+            // flush last messages
+            batch_queue.put(this.batch);
+
+            // exit if necessary
+            keep_going = "yes".equalsIgnoreCase(repeat);
+        }
     }
 
     /**
