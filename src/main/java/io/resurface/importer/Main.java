@@ -40,17 +40,23 @@ public class Main {
         String file = System.getProperty("FILE");
         if (file == null) throw new IllegalArgumentException("Missing FILE");
         System.out.println("FILE=" + file);
-        String host = System.getProperty("HOST");
-        if (host == null) host = "localhost";
-        System.out.println("HOST=" + host);
+        String url = System.getProperty("URL");
+        if (url == null) {
+            String host = System.getProperty("HOST");
+            if (host == null) host = "localhost";
+            System.out.println("HOST=" + host);
+            String port = System.getProperty("PORT");
+            if (port == null) port = "7701";
+            System.out.println("PORT=" + port);
+            // calculate url
+            url = "http://" + host + ":" + port + "/message";
+        }
+        System.out.println("URL=" + url);
+        parsed_url = new URL(url);
+        
         String repeat = System.getProperty("REPEAT");
         if (repeat == null) repeat = "yes";
         System.out.println("REPEAT=" + repeat);
-
-        // calculate url
-        String url = "http://" + host + ":7701/message";
-        System.out.println("URL=" + url);
-        parsed_url = new URL(url);
 
         // send all lines in batches
         new Thread(new BatchSender()).start();
