@@ -1,11 +1,10 @@
-FROM maven:3.3.9-jdk-8
+FROM maven:3.8.4-jdk-8-slim
 RUN mkdir -p /app
 WORKDIR /app
 COPY pom.xml /app/
 COPY src /app/src
 RUN ["mvn", "package"]
 
-FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine-slim
+FROM resurfaceio/alpine-jdk11:3.15.0-x
 COPY --from=0 /app/target/*.jar ./
-RUN apk add --no-cache --upgrade wget less libcrypto1.1 libssl1.1 musl musl-utils apk-tools busybox
-CMD echo "waiting for ${START_DELAY:-10} secs"; sleep ${START_DELAY:-10}; wget $FILE_URL && java -DFILE=./coinbroker.ndjson.gz -DREPEAT=yes -DSATURATED_STOP=${SATURATED_STOP:-no} -Xmx256M -jar main-jar-with-dependencies.jar
+ENTRYPOINT echo "waiting for ${START_DELAY:-10} secs"; sleep ${START_DELAY:-10}; wget $FILE_URL && java -DFILE=./coinbroker.ndjson.gz -DREPEAT=yes -DSATURATED_STOP=${SATURATED_STOP:-no} -Xmx256M -jar main-jar-with-dependencies.jar
