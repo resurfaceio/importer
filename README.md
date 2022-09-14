@@ -1,4 +1,5 @@
 # resurfaceio-importer
+Import NDJSON into Resurface database
 
 ## Supported file formats
 
@@ -9,7 +10,7 @@ https://resurface.io/json.html
 
 ## System requirements
 
-* Java 11
+* Java 17
 * Maven
 
 ## Building from sources

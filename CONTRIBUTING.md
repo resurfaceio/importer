@@ -30,6 +30,12 @@ git pull --rebase                         (avoid merge bubbles)
 git push origin master
 ```
 
+Check if any newer dependencies are available:
+
+```
+mvn versions:display-dependency-updates
+```
+
 ## Release Process
 
 Push this new version to CloudSmith:
@@ -41,7 +47,7 @@ mvn deploy
 Tag release version:
 
 ```
-git tag v2.x.x
+git tag v3.3.x
 git push origin master --tags
 ```
 
