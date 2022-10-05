@@ -1,15 +1,20 @@
 # resurfaceio-importer
 Import NDJSON into Resurface database
 
-This command-line utility imports API calls (stored in NDJSON format) to a remote Resurface database.
-This utility works with Resurface databases running on Docker or Kubernetes, and includes a few helpful
-options for load testing. This utility acts as a remote logger, using the same network interface and
-JSON format as all of our open-source loggers.
+This command-line Java utility imports API calls (stored in [NDJSON format](https://resurface.io/json.html)) to a remote
+Resurface database. This utility works with Resurface databases running on Docker or Kubernetes, and includes a few helpful
+options for load testing. This utility is internally multi-threaded and is typically capable of saturating a gigabit
+network connection.
 
-## System Requirements
+[![CodeFactor](https://www.codefactor.io/repository/github/resurfaceio/importer/badge)](https://www.codefactor.io/repository/github/resurfaceio/importer)
+[![License](https://img.shields.io/github/license/resurfaceio/importer)](https://github.com/resurfaceio/importer/blob/v3.3.x/LICENSE)
+[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/importer/blob/v3.3.x/CONTRIBUTING.md)
+
+## Dependencies
 
 * Java 11
 * Maven
+* [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson)
 
 ## Building From Sources
 
@@ -19,7 +24,12 @@ cd resurfaceio-importer
 mvn package
 ```
 
-## Importing Local File
+## Supported File Formats
+
+This utility reads files in .ndjson.gz format exclusively. This is a compressed file format that can be exported from a
+Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
+
+## Usage
 
 Command-line parameters:
 ```
@@ -35,16 +45,6 @@ Command-line example:
 ```
 java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=yes -DSATURATED_STOP=yes -Xmx256M -jar target/main-jar-with-dependencies.jar
 ```
-
-⚠️ The importer is single-threaded, but typically fast enough to saturate a gigabit ethernet connection.
-
-## Supported File Formats
-
-This utility reads files in .ndjson.gz format exclusively.
-
-This is a compressed file format where each line is a JSON array representing a single API call.
-
-JSON format and examples are provided here: https://resurface.io/json.html
 
 ---
 <small>&copy; 2016-2022 <a href="https://resurface.io">Resurface Labs Inc.</a></small>

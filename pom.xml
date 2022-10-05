@@ -6,7 +6,7 @@
 
     <groupId>io.resurface</groupId>
     <artifactId>resurfaceio-importer</artifactId>
-    <version>3.3.2</version>
+    <version>3.3.3</version>
     <name>resurfaceio-importer</name>
     <description>Import data to Resurface database</description>
     <url>https://github.com/resurfaceio/importer</url>
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>io.resurface</groupId>
             <artifactId>resurfaceio-ndjson</artifactId>
-            <version>3.3.1</version>
+            <version>3.3.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -83,13 +83,9 @@
     </developers>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>cloudsmith</id>
-            <url>https://maven.cloudsmith.io/resurfacelabs/internal/</url>
-        </snapshotRepository>
         <repository>
             <id>cloudsmith</id>
-            <url>https://maven.cloudsmith.io/resurfacelabs/internal/</url>
+            <url>https://maven.cloudsmith.io/resurfacelabs/public/</url>
         </repository>
     </distributionManagement>
 
@@ -117,16 +113,12 @@
 
     <repositories>
         <repository>
-            <id>resurfacelabs-internal</id>
-            <url>https://dl.cloudsmith.io/cm5xAYS2KeL9Y5qA/resurfacelabs/internal/maven/</url>
+            <id>resurfacelabs-public</id>
+            <url>https://dl.cloudsmith.io/public/resurfacelabs/public/maven/</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
             </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
         </repository>
     </repositories>
 
