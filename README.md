@@ -10,12 +10,7 @@ saturating a gigabit network connection.
 [![License](https://img.shields.io/github/license/resurfaceio/importer)](https://github.com/resurfaceio/importer/blob/v3.3.x/LICENSE)
 [![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/importer/blob/v3.3.x/CONTRIBUTING.md)
 
-## Dependencies
-
-* Java 11
-* [resurfaceio/ndjson](https://github.com/resurfaceio/ndjson)
-
-## Command-Line Usage
+## Usage
 
 [Download executable jar](https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar)
 
@@ -33,6 +28,11 @@ Importing a local file, one time:
 ```
 java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.3.jar
 ```
+
+## Dependencies
+
+* Java 11
+* [resurfaceio/ndjson](https://github.com/resurfaceio/ndjson)
 
 ## Installing with Maven
 
