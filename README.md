@@ -14,22 +14,13 @@ network connection.
 
 * Java 11
 * Maven
-* [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson)
-
-## Building From Sources
-
-```
-git clone https://github.com/resurfaceio/importer.git resurfaceio-importer
-cd resurfaceio-importer
-mvn package
-```
-
-## Supported File Formats
-
-This utility reads files in .ndjson.gz format exclusively. This is a compressed file format that can be exported from a
-Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
+* [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson) (included)
 
 ## Usage
+
+<a href="https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar" download>
+<button name="button">Download executable jar</button>
+</a>
 
 Command-line parameters:
 ```
@@ -43,8 +34,41 @@ URL: override HOST and PORT with custom URL for remote database
 
 Command-line example:
 ```
-java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=yes -DSATURATED_STOP=yes -Xmx256M -jar target/main-jar-with-dependencies.jar
+java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.3.jar
 ```
+
+## Installing with Maven
+
+⚠️ We publish our official binaries on [CloudSmith](https://cloudsmith.com) rather than Maven Central, because CloudSmith
+is awesome.
+
+If you want to use this importer utility from within your own Java application, add these sections to `pom.xml` to install:
+
+```xml
+<dependency>
+    <groupId>io.resurface</groupId>
+    <artifactId>resurfaceio-importer</artifactId>
+    <version>3.3.3</version>
+</dependency>
+```
+
+```xml
+<repositories>
+    <repository>
+        <id>resurfacelabs-public</id>
+        <url>https://dl.cloudsmith.io/public/resurfacelabs/public/maven/</url>
+        <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </releases>
+    </repository>
+</repositories>
+```
+
+## Supported File Formats
+
+This utility reads files in .ndjson.gz format exclusively. This is a compressed file format that can be exported from a
+Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
 
 ---
 <small>&copy; 2016-2022 <a href="https://resurface.io">Resurface Labs Inc.</a></small>
