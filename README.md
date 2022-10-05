@@ -16,11 +16,11 @@ network connection.
 * Maven
 * [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson) (included)
 
-## Usage
+## Command-Line Usage
 
 [Download executable jar](https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar)
 
-Command-line parameters:
+Environment parameters:
 ```
 FILE: local .ndjson.gz file to import to remote database
 HOST: machine name for remote database
@@ -30,7 +30,7 @@ SATURATED_STOP: default is 'no', stop importing if database saturates
 URL: override HOST and PORT with custom URL for remote database
 ```
 
-Command-line example:
+Importing a local file, one time:
 ```
 java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.3.jar
 ```
