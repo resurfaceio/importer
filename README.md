@@ -13,7 +13,6 @@ network connection.
 ## Dependencies
 
 * Java 11
-* Maven
 * [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson) (included)
 
 ## Command-Line Usage
