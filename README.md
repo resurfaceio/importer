@@ -13,7 +13,7 @@ saturating a gigabit network connection.
 ## Dependencies
 
 * Java 11
-* [resurfaceio-ndjson](https://github.com/resurfaceio/ndjson)
+* [resurfaceio/ndjson](https://github.com/resurfaceio/ndjson)
 
 ## Command-Line Usage
 
