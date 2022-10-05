@@ -3,7 +3,7 @@ Import NDJSON into Resurface database
 
 This command-line Java utility imports API calls (stored in [NDJSON format](https://resurface.io/json.html)) to a remote
 Resurface database. This utility works with Resurface databases running on Docker or Kubernetes, and includes a few helpful
-options for load testing. This utility is internally multi-threaded and is typically capable of saturating a gigabit
+options for load testing. This utility is multi-threaded and is typically capable of saturating a gigabit
 network connection.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/resurfaceio/importer/badge)](https://www.codefactor.io/repository/github/resurfaceio/importer)
@@ -18,9 +18,7 @@ network connection.
 
 ## Usage
 
-<a href="https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar" download>
-<button name="button">Download executable jar</button>
-</a>
+[Download executable jar](https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar)
 
 Command-line parameters:
 ```
@@ -42,7 +40,7 @@ java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATUR
 ⚠️ We publish our official binaries on [CloudSmith](https://cloudsmith.com) rather than Maven Central, because CloudSmith
 is awesome.
 
-If you want to use this importer utility from within your own Java application, add these sections to `pom.xml` to install:
+If you want to call this utility from your own Java application, add these sections to `pom.xml` to install:
 
 ```xml
 <dependency>
