@@ -6,7 +6,7 @@
 
     <groupId>io.resurface</groupId>
     <artifactId>resurfaceio-importer</artifactId>
-    <version>3.3.4</version>
+    <version>3.3.5</version>
     <name>resurfaceio-importer</name>
     <description>Import data to Resurface database</description>
     <url>https://github.com/resurfaceio/importer</url>
@@ -16,7 +16,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.9.0</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>io.resurface</groupId>
             <artifactId>resurfaceio-ndjson</artifactId>
-            <version>3.3.3</version>
+            <version>3.3.4</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

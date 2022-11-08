@@ -26,7 +26,7 @@ URL: override HOST and PORT with custom URL for remote database
 
 Importing a local file, one time:
 ```
-java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.3.jar
+java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.4.jar
 ```
 
 ## Dependencies
