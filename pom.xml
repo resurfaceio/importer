@@ -54,7 +54,7 @@
         <dependency>
             <groupId>io.resurface</groupId>
             <artifactId>resurfaceio-ndjson</artifactId>
-            <version>3.3.4</version>
+            <version>3.3.6</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
