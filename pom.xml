@@ -6,7 +6,7 @@
 
     <groupId>io.resurface</groupId>
     <artifactId>resurfaceio-importer</artifactId>
-    <version>3.3.5</version>
+    <version>3.3.6</version>
     <name>resurfaceio-importer</name>
     <description>Import data to Resurface database</description>
     <url>https://github.com/resurfaceio/importer</url>

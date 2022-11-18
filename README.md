@@ -12,7 +12,7 @@ saturating a gigabit network connection.
 
 ## Usage
 
-[Download executable jar](https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.3/resurfaceio-importer-3.3.3.jar)
+[Download executable jar](https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.3.5/resurfaceio-importer-3.3.5.jar)
 
 Environment parameters:
 ```
@@ -26,7 +26,7 @@ URL: override HOST and PORT with custom URL for remote database
 
 Importing a local file, one time:
 ```
-java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.4.jar
+java -DFILE=$HOME/XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DREPEAT=no -DSATURATED_STOP=no -Xmx256M -jar $HOME/Downloads/resurfaceio-importer-3.3.5.jar
 ```
 
 ## Dependencies
@@ -45,7 +45,7 @@ If you want to call this utility from your own Java application, add these secti
 <dependency>
     <groupId>io.resurface</groupId>
     <artifactId>resurfaceio-importer</artifactId>
-    <version>3.3.3</version>
+    <version>3.3.5</version>
 </dependency>
 ```
 
