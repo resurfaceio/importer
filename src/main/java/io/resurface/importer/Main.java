@@ -58,18 +58,25 @@ public class Main {
         System.out.println("URL=" + url);
         parsed_url = new URL(url);
 
-        // read repeat & saturation_stop options
+        // read limit options
+        limit_messages = Long.parseLong(System.getProperty("LIMIT_MESSAGES", "0"));
+        System.out.println("LIMIT_MESSAGES=" + limit_messages);
+        limit_millis = Long.parseLong(System.getProperty("LIMIT_MILLIS", "0"));
+        System.out.println("LIMIT_MILLIS=" + limit_millis);
+
+        // read repeat options
         String repeat = System.getProperty("REPEAT");
         if (repeat == null) repeat = "yes";
         System.out.println("REPEAT=" + repeat);
-        if ("yes".equalsIgnoreCase(repeat)) {
-            String saturated_stop = System.getProperty("SATURATED_STOP");
-            if (saturated_stop == null) saturated_stop = "no";
-            System.out.println("SATURATED_STOP=" + saturated_stop);
-            if ("yes".equalsIgnoreCase(saturated_stop)) {
-                saturated_url = new URL(url.substring(0, url.lastIndexOf("/")) + "/saturated");
-                System.out.println("SATURATED_URL=" + saturated_url);
-            }
+
+        // read saturation options & start detector thread
+        String saturated_stop = System.getProperty("SATURATED_STOP", "no");
+        System.out.println("SATURATED_STOP=" + saturated_stop);
+        if ("yes".equalsIgnoreCase(saturated_stop)) {
+            saturated_url = new URL(url.substring(0, url.lastIndexOf("/")) + "/saturated");
+            System.out.println("SATURATED_URL=" + saturated_url);
+            if (saturated()) System.exit(0);
+            new Thread(new SaturationDetector()).start();
         }
 
         // create thread to send batches asynchronously
@@ -115,21 +122,6 @@ public class Main {
                     // exit if poisoned
                     if (b == POISON_BATCH) System.exit(0);
 
-                    // exit if database is saturated
-                    if (saturated_url != null) {
-                        HttpURLConnection c = (HttpURLConnection) saturated_url.openConnection();
-                        c.setConnectTimeout(5000);
-                        c.setReadTimeout(5000);
-                        c.setRequestMethod("GET");
-                        boolean saturated;
-                        try (InputStream is = c.getInputStream()) {
-                            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-                                saturated = "true".equals(br.readLine());
-                            }
-                        }
-                        if (saturated) System.exit(0);
-                    }
-
                     // make request to database
                     HttpURLConnection c = (HttpURLConnection) parsed_url.openConnection();
                     c.setConnectTimeout(5000);
@@ -164,6 +156,43 @@ public class Main {
                 }
             } catch (RuntimeException | IOException | InterruptedException e) {
                 e.printStackTrace();
+                System.exit(-1);
+            }
+        }
+
+    }
+
+    /**
+     * Makes remote call to ask if database is saturated.
+     */
+    private boolean saturated() throws IOException {
+        HttpURLConnection c = (HttpURLConnection) saturated_url.openConnection();
+        c.setConnectTimeout(5000);
+        c.setReadTimeout(5000);
+        c.setRequestMethod("GET");
+        try (InputStream is = c.getInputStream()) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+                return "true".equals(br.readLine());
+            }
+        }
+    }
+
+    /**
+     * Worker thread that detects database saturation.
+     */
+    class SaturationDetector implements Runnable {
+
+        public void run() {
+            try {
+                boolean saturated = false;
+                while (!saturated) {
+                    Thread.sleep(1000);
+                    saturated = saturated();
+                    if (saturated) batch_queue.put(POISON_BATCH);
+                }
+            } catch (RuntimeException | IOException | InterruptedException e) {
+                e.printStackTrace();
+                System.exit(-1);
             }
         }
 
@@ -176,10 +205,16 @@ public class Main {
         long elapsed = System.currentTimeMillis() - started;
         long rate = (messages_written * 1000 / elapsed);
         System.out.println("Messages: " + messages_written + ", Elapsed time: " + elapsed + " ms, Rate: " + rate + " msg/sec");
+
+        // exit if limits reached
+        if ((limit_messages > 0) && (messages_written > limit_messages)) System.exit(0);
+        if ((limit_millis > 0) && (elapsed > limit_millis)) System.exit(0);
     }
 
     private ArrayList<String> batch = new ArrayList<>();
     private final BlockingQueue<List<String>> batch_queue = new ArrayBlockingQueue<>(128);
+    private final long limit_messages;
+    private final long limit_millis;
     private long messages_written = 0;
     private final URL parsed_url;
     private URL saturated_url;
