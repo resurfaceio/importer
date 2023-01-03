@@ -7,19 +7,19 @@ and includes a few helpful options for load testing. This utility is multi-threa
 saturating a gigabit network connection.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/resurfaceio/importer/badge)](https://www.codefactor.io/repository/github/resurfaceio/importer)
-[![License](https://img.shields.io/github/license/resurfaceio/importer)](https://github.com/resurfaceio/importer/blob/v3.4.x/LICENSE)
-[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/importer/blob/v3.4.x/CONTRIBUTING.md)
+[![License](https://img.shields.io/github/license/resurfaceio/importer)](https://github.com/resurfaceio/importer/blob/v3.5.x/LICENSE)
+[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/importer/blob/v3.5.x/CONTRIBUTING.md)
 
 ## Usage
 
 Download executable jar:
 ```
-wget https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.4.1/resurfaceio-importer-3.4.1.jar
+wget https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.5.1/resurfaceio-importer-3.5.1.jar
 ```
 
 Importing a local file:
 ```
-java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.4.1.jar
+java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.5.1.jar
 ```
 
 ## Environment Variables
@@ -52,7 +52,7 @@ If you want to call this utility from your own Java application, add these secti
 <dependency>
     <groupId>io.resurface</groupId>
     <artifactId>resurfaceio-importer</artifactId>
-    <version>3.4.1</version>
+    <version>3.5.1</version>
 </dependency>
 ```
 
