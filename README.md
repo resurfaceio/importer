@@ -3,8 +3,7 @@ Import NDJSON into Resurface database
 
 This open source Java utility imports API calls (stored in [NDJSON format](https://resurface.io/json.html)) to
 a remote Resurface database. This command-line utility works with Resurface databases on Docker or Kubernetes,
-and includes a few helpful options for load testing. This utility is multi-threaded and is typically capable of
-saturating a gigabit network connection.
+and includes a few helpful options for load testing.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/resurfaceio/importer/badge)](https://www.codefactor.io/repository/github/resurfaceio/importer)
 [![License](https://img.shields.io/github/license/resurfaceio/importer)](https://github.com/resurfaceio/importer/blob/v3.5.x/LICENSE)

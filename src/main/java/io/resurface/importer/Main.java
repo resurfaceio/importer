@@ -2,7 +2,7 @@
 
 package io.resurface.importer;
 
-import io.resurface.messages.MessageFileReader;
+import io.resurface.ndjson.MessageFileReader;
 
 import java.io.*;
 import java.net.HttpURLConnection;
