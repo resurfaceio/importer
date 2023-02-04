@@ -37,7 +37,7 @@ URL: override HOST and PORT with custom URL for remote database
 
 ## Dependencies
 
-* Java 11
+* Java 17
 * [resurfaceio/ndjson](https://github.com/resurfaceio/ndjson)
 
 ## Installing with Maven
