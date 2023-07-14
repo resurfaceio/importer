@@ -13,7 +13,7 @@ and includes a few helpful options for load testing.
 
 Download executable jar:
 ```
-wget https://dl.cloudsmith.io/public/resurfacelabs/public/maven/io/resurface/resurfaceio-importer/3.5.3/resurfaceio-importer-3.5.3.jar
+wget https://dl.cloudsmith.io/public/resurfaceio/public/maven/io/resurface/resurfaceio-importer/3.5.3/resurfaceio-importer-3.5.3.jar
 ```
 
 Importing a local file:
@@ -58,8 +58,8 @@ If you want to call this utility from your own Java application, add these secti
 ```xml
 <repositories>
     <repository>
-        <id>resurfacelabs-public</id>
-        <url>https://dl.cloudsmith.io/public/resurfacelabs/public/maven/</url>
+        <id>resurfaceio-public</id>
+        <url>https://dl.cloudsmith.io/public/resurfaceio/public/maven/</url>
         <releases>
             <enabled>true</enabled>
             <updatePolicy>always</updatePolicy>
