@@ -74,4 +74,4 @@ This utility reads files in .ndjson.gz format exclusively. This is a compressed 
 Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
 
 ---
-<small>&copy; 2016-2023 <a href="https://resurface.io">Resurface Labs Inc.</a></small>
+<small>&copy; 2016-2023 <a href="https://resurface.io">Graylog, Inc.</a></small>
