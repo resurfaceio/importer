@@ -4,10 +4,14 @@ package io.resurface.importer;
 
 import io.resurface.ndjson.MessageFileReader;
 
+import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -22,7 +26,7 @@ public class Main {
     /**
      * Number of messages written at once.
      */
-    public static final int BATCH_SIZE = 32;
+    public static final int BATCH_SIZE = 128;
 
     /**
      * Runs importer as command-line program.
@@ -123,9 +127,7 @@ public class Main {
                     if (b == POISON_BATCH) System.exit(0);
 
                     // make request to database
-                    HttpURLConnection c = (HttpURLConnection) parsed_url.openConnection();
-                    c.setConnectTimeout(5000);
-                    c.setReadTimeout(5000);
+                    HttpURLConnection c = trustedConnection(parsed_url);
                     c.setRequestMethod("POST");
                     c.setRequestProperty("Content-Encoding", "deflated");
                     c.setRequestProperty("Content-Type", "application/ndjson; charset=UTF-8");
@@ -166,9 +168,7 @@ public class Main {
      * Makes remote call to ask if database is saturated.
      */
     private boolean saturated() throws IOException {
-        HttpURLConnection c = (HttpURLConnection) saturated_url.openConnection();
-        c.setConnectTimeout(5000);
-        c.setReadTimeout(5000);
+        HttpURLConnection c = trustedConnection(saturated_url);
         c.setRequestMethod("GET");
         try (InputStream is = c.getInputStream()) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
@@ -221,5 +221,41 @@ public class Main {
     private final long started = System.currentTimeMillis();
 
     private static final List<String> POISON_BATCH = new ArrayList<>();
+
+    private static HostnameVerifier TRUST_ALL_HOSTS = (hostname, session) -> true;
+
+    private static TrustManager[] TRUST_ALL_CERTS = new TrustManager[]{new X509TrustManager() {
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+
+        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+        }
+
+        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+        }
+    }};
+
+    private static HttpURLConnection trustedConnection(URL url) throws IOException {
+        if (url.getProtocol().equalsIgnoreCase("https")) {
+            HttpsURLConnection c = (HttpsURLConnection) url.openConnection();
+            c.setConnectTimeout(5000);
+            c.setReadTimeout(5000);
+            c.setHostnameVerifier(TRUST_ALL_HOSTS);
+            try {
+                SSLContext sc = SSLContext.getInstance("TLS");
+                sc.init(null, TRUST_ALL_CERTS, new java.security.SecureRandom());
+                c.setSSLSocketFactory(sc.getSocketFactory());
+            } catch (KeyManagementException | NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+            return c;
+        } else {
+            HttpURLConnection c = (HttpURLConnection) url.openConnection();
+            c.setConnectTimeout(5000);
+            c.setReadTimeout(5000);
+            return c;
+        }
+    }
 
 }
