@@ -24,11 +24,6 @@ import java.util.zip.DeflaterOutputStream;
 public class Main {
 
     /**
-     * Number of messages written at once.
-     */
-    public static final int BATCH_SIZE = 128;
-
-    /**
      * Runs importer as command-line program.
      */
     public static void main(String[] args) throws Exception {
@@ -87,6 +82,8 @@ public class Main {
         new Thread(new BatchSender()).start();
 
         // read file lines and submit messages in batches
+        final int BATCH_SIZE = Integer.parseInt(System.getProperty("BATCH_SIZE", "128"));
+        System.out.println("BATCH_SIZE=" + BATCH_SIZE);
         do {
             try (MessageFileReader reader = new MessageFileReader(file)) {
                 reader.iterate((line) -> {

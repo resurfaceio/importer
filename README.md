@@ -18,7 +18,7 @@ wget https://dl.cloudsmith.io/public/resurfaceio/public/maven/io/resurface/resur
 
 Importing a local file:
 ```
-java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.6.1.jar
+java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DBATCH_SIZE=128 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.6.1.jar
 ```
 
 ## Environment Variables
@@ -28,6 +28,7 @@ FILE: local .ndjson.gz file to import to remote database
 HOST: machine name for remote database
 PORT: network port for remote database
 
+BATCH_SIZE: default is '128', messages sent in a single POST
 LIMIT_MESSAGES: default is '0' (unlimited), quit after this many messages
 LIMIT_MILLIS: default is '0' (unlimited), quit after this many milliseconds
 REPEAT: default is 'no', import file until process is cancelled
