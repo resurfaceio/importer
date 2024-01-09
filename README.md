@@ -1,8 +1,8 @@
 # resurfaceio-importer
 Import NDJSON into Resurface database
 
-This open source Java utility imports API calls (stored in [NDJSON format](https://resurface.io/json.html)) to
-a remote Resurface database. This command-line utility works with Resurface databases on Docker or Kubernetes,
+This open-source Java utility imports API calls (stored in [NDJSON format](https://resurface.io/json.html)) to
+a remote Resurface database. This command-line utility works with Resurface databases on Kubernetes or Docker,
 and includes a few helpful options for load testing.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/resurfaceio/importer/badge)](https://www.codefactor.io/repository/github/resurfaceio/importer)
@@ -18,8 +18,11 @@ wget https://dl.cloudsmith.io/public/resurfaceio/public/maven/io/resurface/resur
 
 Importing a local file:
 ```
-java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=7701 -DBATCH_SIZE=128 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.6.1.jar
+java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=443 -DBATCH_SIZE=128 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.6.1.jar
 ```
+
+⚠️ This utility reads files in .ndjson.gz format exclusively. This compressed file format that can be exported from a
+Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
 
 ## Environment Variables
 
@@ -69,10 +72,5 @@ If you want to call this utility from your own Java application, add these secti
 </repositories>
 ```
 
-## Supported File Formats
-
-This utility reads files in .ndjson.gz format exclusively. This is a compressed file format that can be exported from a
-Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
-
 ---
-<small>&copy; 2016-2023 <a href="https://resurface.io">Graylog, Inc.</a></small>
+<small>&copy; 2016-2024 <a href="https://resurface.io">Graylog, Inc.</a></small>
