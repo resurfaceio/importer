@@ -21,10 +21,10 @@ Importing a local file:
 java -DFILE=XXX.ndjson.gz -DHOST=localhost -DPORT=443 -DBATCH_SIZE=128 -DLIMIT_MESSAGES=0 -DLIMIT_MILLIS=0 -DREPEAT=no -DSATURATED_STOP=no -Xmx512M -jar resurfaceio-importer-3.6.1.jar
 ```
 
-⚠️ This utility reads files in .ndjson.gz format exclusively. This compressed file format that can be exported from a
+⚠️ This utility reads files in .ndjson.gz format exclusively. This compressed file format can be exported from a
 Resurface database, or generated using the [ndjson](https://github.com/resurfaceio/ndjson) library.
 
-## Environment Variables
+## Parameters
 
 ```
 FILE: local .ndjson.gz file to import to remote database
