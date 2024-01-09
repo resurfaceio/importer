@@ -29,7 +29,7 @@ Resurface database, or generated using the [ndjson](https://github.com/resurface
 ```
 FILE: local .ndjson.gz file to import to remote database
 HOST: machine name for remote database
-PORT: network port for remote database
+PORT: network port for remote database (80 or 443 for Kubernetes, 7701 for Docker)
 
 BATCH_SIZE: default is '128', messages sent in a single POST
 LIMIT_MESSAGES: default is '0' (unlimited), quit after this many messages
